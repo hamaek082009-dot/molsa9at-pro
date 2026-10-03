@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ملصقات برو | اطلب ملصقاتك</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="public-head">
+  <a class="logo" href="/"><span>▣</span><div><b>ملصقات برو</b><small>طباعة الملصقات باحتراف</small></div></a>
+  <div class="head-spacer"></div>
+</header>
+<div id="notifications" class="notifications-wrap"></div>
+<main class="public-main">
+  <section class="hero">
+    <div><span class="eyebrow">خدمة طباعة ملصقات</span><h1>حوّل صورك إلى<br><em>ملصقات مميزة</em></h1><p>اختر الحجم والكمية، ارفع صورك، وأرسل طلبك في دقائق.</p></div>
+    <div class="hero-art"><div class="glow"></div><div class="sticker s1">★</div><div class="sticker s2">♥</div><div class="sticker s3">✦</div></div>
+  </section>
+
+  <form id="orderForm">
+    <div class="form-grid">
+      <section class="card">
+        <div class="step"><span>1</span><div><b>بياناتك</b><small>حتى نتواصل معك بخصوص الطلب</small></div></div>
+        <label>الاسم الكامل *</label><input id="name" name="name" required placeholder="اكتب اسمك هنا...">
+        <label>رقم الهاتف</label><input id="phone" name="phone" placeholder="05xxxxxxxx">
+      </section>
+      <section class="card">
+        <div class="step"><span>2</span><div><b>اختر الحجم والكمية</b><small>يمكنك اختيار أكثر من نوع</small></div></div>
+        <div id="products" class="products"></div>
+        <div id="offerBox" class="offer-box" data-section="offer">
+          <div class="offer-box-head"><b>🏷️ كود العرض</b><small>اضغط على عرض من الأعلى ليتم وضعه وتطبيقه تلقائياً</small></div>
+          <div class="offer-input-row">
+            <input id="offerCode" name="offerCode" placeholder="مثلاً RAMADAN10" autocomplete="off">
+            <button id="applyOfferBtn" type="button">تطبيق</button>
+            <button id="clearOfferBtn" type="button" class="clear-offer">إلغاء</button>
+          </div>
+          <div id="offerStatus" class="offer-status"></div>
+        </div>
+        <div class="total-line"><span>الإجمالي</span><strong id="total">0 دج</strong></div>
+        <div id="discountLine" class="discount-line" hidden><span>الخصم</span><strong id="discount">0 دج</strong></div>
+      </section>
+      <section class="card">
+        <div class="step"><span>3</span><div><b>ارفع صورك</b><small>JPG · PNG · WEBP حتى 8MB للصورة</small></div></div>
+        <label class="drop" id="drop"><input id="images" type="file" name="images" accept="image/jpeg,image/png,image/webp" multiple><span class="upload-icon">⇧</span><b>اضغط لاختيار الصور</b><small>أو اسحب الصور إلى هنا</small></label>
+        <div id="preview" class="preview"></div>
+      </section>
+      <section class="card">
+        <div class="step"><span>4</span><div><b>ملاحظات</b><small>اختياري</small></div></div>
+        <textarea id="notes" name="notes" placeholder="أي تعليمات خاصة بالطباعة أو القص..."></textarea>
+      </section>
+    </div>
+    <button class="submit" type="submit"><span>إرسال طلب الطباعة</span><b id="submitTotal">0 دج</b> →</button>
+  </form>
+</main>
+<div id="toast" class="toast"></div>
+<script src="/app.js"></script>
+</body></html>

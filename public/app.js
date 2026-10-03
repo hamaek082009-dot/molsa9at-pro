@@ -1,7 +1,13 @@
 let prices=[], selected={};
 const $=s=>document.querySelector(s);
 const money=n=>Number(n).toLocaleString("ar-DZ")+" دج";
-let appliedOffer = JSON.parse(localStorage.getItem("molsaqat_applied_offer")||"null");
+let appliedOffer = null;
+try {
+  const savedOffer = localStorage.getItem("molsaqat_applied_offer");
+  appliedOffer = savedOffer ? JSON.parse(savedOffer) : null;
+} catch {
+  localStorage.removeItem("molsaqat_applied_offer");
+}
 
 function applyOffer(offer){
   if(!offer?.code) return;
@@ -74,8 +80,17 @@ function hideNotice(id){
 }
 function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
 async function init(){
-  prices=await fetch("/api/prices").then(r=>r.json());
-  renderProducts();
+  try{
+    const res=await fetch("/api/prices");
+    if(!res.ok) throw new Error("تعذر تحميل الأسعار");
+    prices=await res.json();
+    renderProducts();
+    updateTotal();
+  }catch(err){
+    console.error("Initialization error:",err);
+    if($("#products")) $("#products").innerHTML='<p class="muted">تعذر تحميل المنتجات. أعد تحميل الصفحة.</p>';
+    toast("تعذر تحميل المنتجات. أعد تحميل الصفحة.");
+  }
 }
 function renderProducts(){
   $("#products").innerHTML=prices.map(p=>`<div class="product" data-id="${p.id}">
@@ -133,13 +148,41 @@ $("#offerCode").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefa
 
 $("#orderForm").addEventListener("submit",async e=>{
   e.preventDefault();
-  if(updateTotal()===0)return toast("اختر نوعاً واحداً على الأقل");
-  const fd=new FormData(e.target);
-  fd.set("items",JSON.stringify(prices.filter(p=>selected[p.id]).map(p=>({id:p.id,name:p.name,qty:selected[p.id]}))));
-  if(appliedOffer) fd.set("offerCode",appliedOffer.code);
-  const res=await fetch("/api/orders",{method:"POST",body:fd});const data=await res.json();
-  if(!res.ok)return toast(data.error||"حدث خطأ");
-  location.href="/?success="+encodeURIComponent(data.order.number);
+  const total=updateTotal();
+  if(total===0)return toast("اختر نوعاً واحداً على الأقل");
+
+  const form=e.target;
+  const submitBtn=form.querySelector("button[type=submit]");
+  const originalText=submitBtn?.innerHTML || "إرسال الطلب";
+  if(submitBtn){
+    submitBtn.disabled=true;
+    submitBtn.innerHTML='<span>جاري إرسال الطلب...</span>';
+  }
+
+  try{
+    const fd=new FormData(form);
+    fd.set("items",JSON.stringify(prices.filter(p=>selected[p.id]).map(p=>({
+      id:p.id,name:p.name,qty:selected[p.id]
+    }))));
+    if(appliedOffer) fd.set("offerCode",appliedOffer.code);
+
+    const res=await fetch("/api/orders",{method:"POST",body:fd});
+    const contentType=res.headers.get("content-type")||"";
+    const data=contentType.includes("application/json") ? await res.json() : {error:await res.text()};
+
+    if(!res.ok) throw new Error(data.error||`تعذر إرسال الطلب (${res.status})`);
+    if(!data.order?.number) throw new Error("تمت الاستجابة لكن لم يصل رقم الطلب");
+
+    location.href="/?success="+encodeURIComponent(data.order.number);
+  }catch(err){
+    console.error("Order submission error:",err);
+    toast(err.message||"تعذر إرسال الطلب. حاول مرة أخرى.");
+  }finally{
+    if(submitBtn){
+      submitBtn.disabled=false;
+      submitBtn.innerHTML=originalText;
+    }
+  }
 });
 const params=new URLSearchParams(location.search);
 if(params.get("success")) setTimeout(()=>toast("تم استلام طلبك رقم "+params.get("success")+" ✓"),150);

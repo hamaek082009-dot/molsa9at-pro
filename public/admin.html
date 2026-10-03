@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ملصقات برو | لوحة التحكم</title><link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-body">
+<div id="login" class="login-screen"><div class="login-box"><div class="logo center"><span>▣</span><div><b>ملصقات برو</b><small>لوحة المدير</small></div></div><h1>تسجيل الدخول</h1><p>أدخل كلمة مرور لوحة التحكم</p><input id="password" type="password" placeholder="كلمة المرور"><button class="submit" id="loginBtn">دخول</button><small class="hint">الكلمة الافتراضية عند التشغيل: admin123</small></div></div>
+<div id="adminApp" class="admin-layout hidden">
+<aside class="admin-side"><div class="logo"><span>▣</span><div><b>ملصقات برو</b><small>لوحة المدير</small></div></div><nav>
+<button class="side active" data-tab="dashboard">▦ <span>لوحة التحكم</span></button>
+<button class="side" data-tab="orders">🛒 <span>الطلبات</span></button>
+<button class="side" data-tab="customers">♙ <span>الزبائن</span></button>
+<button class="side" data-tab="prices">◇ <span>المنتجات والأسعار</span></button>
+<button class="side" data-tab="notifications">🔔 <span>الإشعارات والعروض</span></button>
+</nav><a href="/" class="back">← صفحة الطلب</a></aside>
+<main class="admin-content">
+<header class="admin-top"><div><b id="tabTitle">لوحة التحكم</b><small>إدارة مشروع طباعة الملصقات</small></div><button id="refresh">↻ تحديث</button></header>
+<section id="tab-dashboard" class="tab active-tab">
+<div class="stats" id="stats"></div><div class="panel"><div class="panel-head"><h2>آخر الطلبات</h2><button onclick="openTab('orders')">عرض الكل</button></div><div id="recent"></div></div>
+</section>
+<section id="tab-orders" class="tab"><div class="panel"><div class="panel-head"><h2>كل الطلبات</h2><input id="searchOrders" class="search" placeholder="بحث بالاسم أو رقم الطلب..."></div><div class="table-wrap"><table><thead><tr><th>الطلب</th><th>الزبون</th><th>الكمية</th><th>الإجمالي</th><th>الحالة</th><th>التاريخ</th><th></th></tr></thead><tbody id="ordersBody"></tbody></table></div></div></section>
+<section id="tab-customers" class="tab"><div class="panel"><div class="panel-head"><h2>الزبائن</h2></div><div id="customers"></div></div></section>
+<section id="tab-prices" class="tab">
+  <div class="panel">
+    <div class="panel-head"><h2>المنتجات والأسعار</h2><button class="primary small-btn" id="savePrices">حفظ التعديلات</button></div>
+    <div id="priceEditor"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h2>إضافة منتج أو سعر جديد</h2></div>
+    <form id="productForm" class="product-form">
+      <input id="newProductName" placeholder="اسم المنتج" required>
+      <input id="newProductPrice" type="number" min="0" placeholder="السعر بالدج" required>
+      <input id="newProductIcon" placeholder="🏷️" maxlength="4">
+      <select id="newProductColor"><option value="blue">أزرق</option><option value="purple">بنفسجي</option><option value="orange">برتقالي</option><option value="green">أخضر</option></select>
+      <button class="primary" type="submit">+ إضافة المنتج</button>
+    </form>
+  </div>
+</section>
+<section id="tab-notifications" class="tab">
+  <div class="panel">
+    <div class="panel-head"><h2>إضافة إشعار أو عرض</h2></div>
+    <form id="notificationForm" class="notification-form">
+      <input id="notificationTitle" placeholder="عنوان العرض، مثلاً: تخفيض هذا الأسبوع" required>
+      <textarea id="notificationMessage" placeholder="اكتب تفاصيل العرض أو الإعلان..." required></textarea>
+      <div class="form-inline">
+        <select id="notificationType"><option value="offer">🏷️ عرض / تخفيض</option><option value="info">ℹ️ معلومة</option><option value="warning">⚠️ تنبيه</option></select>
+        <input id="notificationExpiry" type="datetime-local" title="تاريخ انتهاء الإشعار (اختياري)">
+        <button class="primary" type="submit">نشر الإشعار</button>
+      </div>
+      <div class="offer-builder">
+        <label><input type="checkbox" id="notificationHasOffer"> تفعيل خصم تلقائي عند الضغط على العرض</label>
+        <div class="form-inline">
+          <input id="notificationOfferCode" placeholder="كود العرض، مثلاً RAMADAN10">
+          <select id="notificationDiscountType"><option value="percent">خصم %</option><option value="fixed">خصم بالدج</option></select>
+          <input id="notificationDiscountValue" type="number" min="0" placeholder="قيمة الخصم">
+          <input id="notificationMinTotal" type="number" min="0" placeholder="الحد الأدنى للطلب (اختياري)">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="panel"><div class="panel-head"><h2>الإشعارات المنشورة</h2></div><div id="notificationsList"></div></div>
+</section>
+</main></div>
+<div id="modal" class="modal hidden"><div class="modal-box"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+<div id="toast" class="toast"></div>
+<script src="/admin.js"></script>
+</body></html>

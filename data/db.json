@@ -1,0 +1,134 @@
+{
+  "prices": [
+    {
+      "id": "small",
+      "name": "صورة صغيرة",
+      "price": 20,
+      "icon": "🏷️",
+      "color": "blue"
+    },
+    {
+      "id": "medium",
+      "name": "صورة متوسطة",
+      "price": 30,
+      "icon": "🏷️",
+      "color": "purple"
+    },
+    {
+      "id": "large",
+      "name": "صورة كبيرة",
+      "price": 50,
+      "icon": "📌",
+      "color": "orange"
+    },
+    {
+      "id": "bulk9",
+      "name": "9 صور صغيرة (بالجملة)",
+      "price": 125,
+      "icon": "📦",
+      "color": "green"
+    }
+  ],
+  "orders": [
+    {
+      "id": "d238ca96-6da2-4b1d-8d44-6136df55cc21",
+      "number": "MP-2026-7512382",
+      "name": "عبدقا",
+      "phone": "",
+      "items": [
+        {
+          "id": "small",
+          "name": "صورة صغيرة",
+          "qty": 2,
+          "price": 20
+        },
+        {
+          "id": "medium",
+          "name": "صورة متوسطة",
+          "qty": 2,
+          "price": 30
+        },
+        {
+          "id": "large",
+          "name": "صورة كبيرة",
+          "qty": 4,
+          "price": 50
+        },
+        {
+          "id": "bulk9",
+          "name": "9 صور صغيرة (بالجملة)",
+          "qty": 1,
+          "price": 125
+        }
+      ],
+      "images": [
+        {
+          "name": "786106612_1047099448094672_2151063084114085061_n.jpg",
+          "path": "/uploads/53c75c0d-b5e3-4e12-9889-93d42b42e922.jpg"
+        },
+        {
+          "name": "829632174_1470207108284514_522255850870416672_n.jfif",
+          "path": "/uploads/262c0631-772d-4f10-9a03-39b7a92ca89b.jfif"
+        },
+        {
+          "name": "ChatGPT Image 25 Ø³Ø¨ØªÙØ¨Ø± 2026Ø 10_20_34 Ù.png",
+          "path": "/uploads/587080ff-c8c3-4285-bc81-f54b68a6e297.png"
+        },
+        {
+          "name": "download.png",
+          "path": "/uploads/81345603-62a0-41e3-9a72-341e33cf2ed8.png"
+        },
+        {
+          "name": "images.jfif",
+          "path": "/uploads/1211ef6e-e811-444f-988d-681111c575a8.jfif"
+        },
+        {
+          "name": "Screenshot 2026-10-03 174615.png",
+          "path": "/uploads/b299a475-cb2c-47ec-9b08-3932f43ca032.png"
+        },
+        {
+          "name": "Screenshot 2026-10-03 174655.png",
+          "path": "/uploads/b8187019-d358-4555-8748-f84d098bf1d7.png"
+        },
+        {
+          "name": "Screenshot 2026-10-03 175006.png",
+          "path": "/uploads/b409d9ae-fbd3-4f4b-a5a2-63d7f29bace9.png"
+        },
+        {
+          "name": "Screenshot 2026-10-03 200022.png",
+          "path": "/uploads/f1364a9c-b6f3-4248-bc5b-c6b8c4242346.png"
+        }
+      ],
+      "notes": "",
+      "subtotal": 425,
+      "discount": 0,
+      "total": 425,
+      "offer": null,
+      "status": "قيد الانتظار",
+      "createdAt": "2026-10-03T19:58:32.382Z",
+      "updatedAt": "2026-10-03T19:58:32.382Z"
+    }
+  ],
+  "customers": [
+    {
+      "key": "عبدقا",
+      "name": "عبدقا",
+      "phone": "",
+      "orders": 1,
+      "total": 425,
+      "createdAt": "2026-10-03T19:58:32.382Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "e5f4059f-39df-49b3-bb86-2d95fe6ae8fc",
+      "title": "تخفيضات الدخول المدرسي",
+      "message": "كل انواع الصور بتخفيض نصف السعر تفريغ المحل",
+      "type": "offer",
+      "active": true,
+      "expiresAt": null,
+      "offer": null,
+      "createdAt": "2026-10-03T19:56:46.255Z"
+    }
+  ]
+}
